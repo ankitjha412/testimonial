@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { getTestimonials } from "../api/testimonialApi";
 import TestimonialCard from "../components/TestimonialCard";
 import Loader from "../components/Loader";
-import { Grid, Container, Typography, Box } from "@mui/material";
+import { Grid, Container, Typography, Box, useTheme } from "@mui/material";
 
 function Home() {
+  const theme = useTheme();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,32 +36,41 @@ function Home() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #f4f7fb 0%, #e6ecf9 100%)", // ✅ soft background
-        py: 6,
+        minHeight: "70vh",
+        background: theme.palette.background.default, // ✅ use theme background
+        py: { xs: 4, md: 8 },
       }}
     >
-      <Container>
-        {/* Page Header */}
-        <Box textAlign="center" mb={5}>
+      <Container maxWidth="lg">
+        {/* ✅ Page Header */}
+        <Box textAlign="center" mb={{ xs: 4, md: 6 }}>
           <Typography
-            variant="h4"
+            variant="h3"
             fontWeight={700}
-            sx={{ color: "#1e3c72", mb: 1 }}
+            sx={{
+              color: theme.palette.primary.dark, // ✅ deep blue for header
+              mb: 1,
+              fontSize: { xs: "2rem", md: "2.5rem" },
+            }}
           >
             What People Say
           </Typography>
           <Typography
             variant="body1"
-            sx={{ maxWidth: 600, mx: "auto", color: "text.secondary" }}
+            sx={{
+              maxWidth: 600,
+              mx: "auto",
+              color: theme.palette.text.secondary, // ✅ consistent muted gray
+              fontSize: { xs: "0.95rem", md: "1.05rem" },
+            }}
           >
             Read authentic feedback and testimonials from our valued users. 
             Every testimonial is carefully reviewed to ensure quality and trust.
           </Typography>
         </Box>
 
-        {/* Testimonials Grid */}
-        <Grid container spacing={3}>
+        {/* ✅ Testimonials Grid */}
+        <Grid container spacing={4}>
           {testimonials.map((t, index) => (
             <Grid
               item
@@ -70,7 +80,7 @@ function Home() {
               key={t._id}
               sx={{
                 animation: "fadeUp 0.6s ease forwards",
-                animationDelay: `${index * 0.1}s`,
+                animationDelay: `${index * 0.15}s`,
                 opacity: 0,
                 "@keyframes fadeUp": {
                   from: { opacity: 0, transform: "translateY(20px)" },

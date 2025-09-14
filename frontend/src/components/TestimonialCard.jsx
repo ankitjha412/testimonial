@@ -6,23 +6,26 @@ import {
   Rating,
   CardActionArea,
   Box,
+  useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function TestimonialCard({ testimonial }) {
+  const theme = useTheme();
+
   return (
     <Card
       sx={{
-        maxWidth: 345,
-        m: 2,
+        height: "100%",
         borderRadius: 4,
         overflow: "hidden",
-        background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        background: theme.palette.background.paper, // ✅ card background
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
         transition: "all 0.3s ease",
         "&:hover": {
           transform: "translateY(-8px) scale(1.02)",
-          boxShadow: "0 12px 24px rgba(0,0,0,0.2)",
+          boxShadow: "0 12px 24px rgba(0,0,0,0.18)",
+          cursor: "pointer",
         },
       }}
     >
@@ -35,13 +38,16 @@ function TestimonialCard({ testimonial }) {
           alignItems: "center",
           p: 3,
           textAlign: "center",
+          height: "100%",
         }}
       >
-        {/* Avatar with glow ring */}
+        {/* Avatar with animated glow ring */}
         <Box
           sx={{
             position: "relative",
             mb: 2,
+            display: "inline-flex",
+            justifyContent: "center",
             "&::after": {
               content: '""',
               position: "absolute",
@@ -50,10 +56,9 @@ function TestimonialCard({ testimonial }) {
               width: "calc(100% + 8px)",
               height: "calc(100% + 8px)",
               borderRadius: "50%",
-              background:
-                "conic-gradient(from 180deg, #6a11cb, #2575fc, #6a11cb)",
+              background: `conic-gradient(from 180deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
               zIndex: -1,
-              animation: "spin 4s linear infinite",
+              animation: "spin 5s linear infinite",
             },
             "@keyframes spin": {
               "0%": { transform: "rotate(0deg)" },
@@ -62,10 +67,19 @@ function TestimonialCard({ testimonial }) {
           }}
         >
           <Avatar
-            src={testimonial.profilePic}
-            alt={testimonial.fullName}
-            sx={{ width: 80, height: 80 }}
-          />
+            src={testimonial.profilePic || ""}
+            alt={testimonial.fullName || "User"}
+            sx={{
+              width: 80,
+              height: 80,
+              bgcolor: theme.palette.primary.main,
+              fontWeight: 600,
+              fontSize: "1.2rem",
+              color: theme.palette.common.white,
+            }}
+          >
+            {testimonial.fullName?.[0]}
+          </Avatar>
         </Box>
 
         {/* Name */}
@@ -73,10 +87,10 @@ function TestimonialCard({ testimonial }) {
           variant="h6"
           sx={{
             fontWeight: 700,
-            color: "#222",
+            color: theme.palette.text.primary,
             mb: 0.5,
-            transition: "color 0.3s",
-            "&:hover": { color: "#2575fc" },
+            transition: "color 0.3s ease",
+            "&:hover": { color: theme.palette.primary.main },
           }}
         >
           {testimonial.fullName}
@@ -85,13 +99,36 @@ function TestimonialCard({ testimonial }) {
         {/* Title */}
         <Typography
           variant="body2"
-          sx={{ color: "text.secondary", mb: 1 }}
+          sx={{ color: theme.palette.text.secondary, mb: 1 }}
         >
           {testimonial.title}
         </Typography>
 
         {/* Rating */}
-        <Rating value={testimonial.rating} readOnly precision={0.5} />
+        <Rating
+          value={testimonial.rating}
+          readOnly
+          precision={0.5}
+          sx={{
+            color: "#FFD700", // ✅ gold stars
+            mb: 1,
+            "& .MuiRating-iconEmpty": { color: "#ddd" },
+          }}
+        />
+
+        {/* Testimonial Text */}
+        <Typography
+          variant="body2"
+          sx={{
+            mt: 2,
+            color: theme.palette.text.secondary,
+            lineHeight: 1.6,
+            fontStyle: "italic",
+            px: 1,
+          }}
+        >
+          “{testimonial.message}”
+        </Typography>
       </CardActionArea>
     </Card>
   );

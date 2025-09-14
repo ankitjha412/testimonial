@@ -1,4 +1,4 @@
-import { CircularProgress, Box } from "@mui/material";
+import { Box } from "@mui/material";
 
 function Loader() {
   return (
@@ -7,24 +7,26 @@ function Loader() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        my: 6,
-        minHeight: "120px",
+        minHeight: "120px", // breathing room
       }}
     >
-      <CircularProgress
-        size={60}
-        thickness={5}
+      <Box
+        role="progressbar"
+        aria-busy="true"
+        aria-label="Loading"
         sx={{
-          color: "transparent",
-          background:
-            "conic-gradient(from 180deg, #6a11cb, #2575fc, #6a11cb)", // gradient spin
+          width: { xs: 40, sm: 60 }, // responsive size
+          height: { xs: 40, sm: 60 },
           borderRadius: "50%",
+          border: "5px solid transparent",
+          background:
+            "conic-gradient(from 0deg, #6a11cb, #2575fc, #6a11cb)", // gradient ring
           animation: "spin 1.2s linear infinite",
+          boxShadow: "0px 0px 15px rgba(37,117,252,0.4)", // glowing outer effect
           "@keyframes spin": {
             "0%": { transform: "rotate(0deg)" },
             "100%": { transform: "rotate(360deg)" },
           },
-          boxShadow: "0px 0px 15px rgba(37, 117, 252, 0.4)", // glowing effect
         }}
       />
     </Box>

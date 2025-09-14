@@ -5,23 +5,29 @@ function RatingStars({ value, onChange }) {
     <Rating
       name="rating"
       value={value}
-      precision={0.5} // allows half-stars
+      precision={0.5} // ✅ half-stars supported
       onChange={(_, newValue) => onChange(newValue)}
+      getLabelText={(ratingValue) => `Rated ${ratingValue} out of 5`}
       sx={{
-        fontSize: "2.2rem", // bigger stars
-        color: "#FFD700", // gold color for filled stars
+        fontSize: { xs: "1.8rem", sm: "2.2rem" }, // ✅ responsive size
+        color: "#FFD700", // gold for filled
         "& .MuiRating-iconEmpty": {
-          color: "#ccc", // gray for empty stars
-        },
-        "& .MuiRating-iconHover": {
-          transform: "scale(1.2)", // grow on hover
-          transition: "transform 0.2s ease",
-          filter: "drop-shadow(0px 0px 6px rgba(255,215,0,0.6))", // glowing effect
+          color: "#ccc", // gray for empty
         },
         "& .MuiRating-iconFilled": {
           color: "#FFD700",
-          textShadow: "0px 0px 6px rgba(255,215,0,0.6)", // glow filled stars
+          textShadow: "0px 0px 6px rgba(255, 215, 0, 0.6)", // ✅ subtle glow
           transition: "all 0.2s ease",
+        },
+        "& .MuiRating-iconHover": {
+          transform: "scale(1.2)", // ✅ smooth hover scale
+          filter: "drop-shadow(0px 0px 6px rgba(255, 215, 0, 0.6))", // glowing aura
+          transition: "transform 0.2s ease, filter 0.2s ease",
+        },
+        "& .MuiRating-iconFocus": {
+          outline: "2px solid #2575fc", // ✅ keyboard focus visible
+          outlineOffset: "2px",
+          borderRadius: "4px",
         },
       }}
     />

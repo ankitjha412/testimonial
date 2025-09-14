@@ -22,7 +22,7 @@ function AdminDashboard() {
   const fetchAll = () => {
     getAllTestimonials(admin.email, "admin123")
       .then((res) => setTestimonials(res.data))
-      .catch((err) => console.error("❌ Error fetching all testimonials:", err))
+      .catch((err) => console.error("❌ Error fetching testimonials:", err))
       .finally(() => setLoading(false));
   };
 
@@ -43,28 +43,32 @@ function AdminDashboard() {
   };
 
   return (
-    <Container sx={{ mt: 4, mb: 6 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 6 }}>
       {/* Header Section */}
       <Box
         sx={{
-          p: 3,
+          p: 4,
           mb: 4,
           borderRadius: 3,
           background: "linear-gradient(90deg, #6a11cb, #2575fc)",
           color: "white",
           textAlign: "center",
-          boxShadow: "0 6px 16px rgba(0,0,0,0.2)",
-          animation: "fadeDown 0.5s ease-in-out",
+          boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
+          animation: "fadeDown 0.6s ease-in-out",
           "@keyframes fadeDown": {
-            from: { opacity: 0, transform: "translateY(-15px)" },
+            from: { opacity: 0, transform: "translateY(-20px)" },
             to: { opacity: 1, transform: "translateY(0)" },
           },
         }}
       >
-        <Typography variant="h4" fontWeight={700} gutterBottom>
+        <Typography variant="h4" fontWeight={700} gutterBottom color="yellow">
           Admin Dashboard
         </Typography>
-        <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto" }}>
+        <Typography
+
+          variant="body1"
+          sx={{ maxWidth: 700, mx: "auto", color: "yellow" } }
+        >
           Manage all submitted testimonials here. You can review, approve, reject, 
           or delete testimonials. This ensures only the best and most authentic 
           feedback is published on the platform.
@@ -77,9 +81,11 @@ function AdminDashboard() {
         sx={{
           p: 2,
           borderRadius: 3,
+          background: "#fff",
+          overflowX: "auto", // ✅ responsive scroll on mobile
           animation: "fadeIn 0.6s ease-in-out",
           "@keyframes fadeIn": {
-            from: { opacity: 0, transform: "translateY(10px)" },
+            from: { opacity: 0, transform: "translateY(15px)" },
             to: { opacity: 1, transform: "translateY(0)" },
           },
         }}
