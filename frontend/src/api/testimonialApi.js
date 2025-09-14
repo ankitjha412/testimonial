@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/testimonials" });
+const API = axios.create({ baseURL: " https://testimonial-eirx.onrender.com/api/testimonials" });
 
 // Public
 export const submitTestimonial = (formData) =>
